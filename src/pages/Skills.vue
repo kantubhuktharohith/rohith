@@ -23,8 +23,7 @@ const categories = [
 const stats = ref([
   { target: 5, suffix: '+', label: 'Projects', val: 0 },
   { target: 8, suffix: '+', label: 'Tech Stack', val: 0 },
-  { target: 5, suffix: '+', label: 'Certs', val: 0 },
-  { target: 4, suffix: '', label: 'Hackathons', val: 0 }
+  { target: 5, suffix: '+', label: 'Certs', val: 0 }
 ])
 
 const statsGridRef = ref(null)

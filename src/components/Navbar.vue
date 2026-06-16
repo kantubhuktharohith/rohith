@@ -46,9 +46,7 @@ const handleKeyDown = (e) => {
     case 's':
       router.push('/skills')
       break
-    case 'k':
-      router.push('/hackathons')
-      break
+
     case 'p':
       router.push('/projects')
       break
@@ -133,11 +131,7 @@ onUnmounted(() => {
           <span class="nav-key">[s]</span> skills
         </router-link>
       </li>
-      <li>
-        <router-link to="/hackathons" class="nav-link" active-class="active">
-          <span class="nav-key">[k]</span> hackathons
-        </router-link>
-      </li>
+
       <li>
         <router-link to="/projects" class="nav-link" active-class="active">
           <span class="nav-key">[p]</span> projects
