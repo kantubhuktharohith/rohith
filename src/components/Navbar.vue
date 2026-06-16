@@ -19,7 +19,9 @@ const toggleMusic = () => {
   if (isPlaying.value) {
     audio.pause()
     isPlaying.value = false
+    removeInteractionListeners()
   } else {
+    removeInteractionListeners()
     audio.play().then(() => {
       isPlaying.value = true
     }).catch(err => {
@@ -49,6 +51,9 @@ const handleKeyDown = (e) => {
       break
     case 'p':
       router.push('/projects')
+      break
+    case 'c':
+      router.push('/contact')
       break
     case 'r':
       emit('open-resume')
@@ -139,10 +144,29 @@ onUnmounted(() => {
         </router-link>
       </li>
       <li>
+        <router-link to="/contact" class="nav-link" active-class="active">
+          <span class="nav-key">[c]</span> contact
+        </router-link>
+      </li>
+      <li>
         <a href="#" @click.prevent="emit('open-resume')" class="nav-link">
           <span class="nav-key">[r]</span> resume
         </a>
       </li>
     </ul>
   </nav>
+
+  <!-- Floating Music Toggle in Bottom-Right Corner -->
+  <button 
+    class="floating-music-btn" 
+    :class="{ 'is-playing': isPlaying }" 
+    @click="toggleMusic"
+    aria-label="Toggle Background Music"
+  >
+    <span class="music-btn-key">[m]</span>
+    <div class="music-icon-container">
+      <i class="fas fa-music" :class="{ 'pulse-icon': isPlaying }"></i>
+      <div v-if="!isPlaying" class="music-slash"></div>
+    </div>
+  </button>
 </template>

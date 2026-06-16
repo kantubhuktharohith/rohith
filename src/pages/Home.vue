@@ -34,16 +34,7 @@ onMounted(() => {
             stroke-width="0.8"
             stroke-dasharray="6 8"
             stroke-linecap="round"
-          >
-            <animateTransform
-              attributeName="transform"
-              type="rotate"
-              from="0 50 50"
-              to="360 50 50"
-              dur="25s"
-              repeatCount="indefinite"
-            />
-          </circle>
+          />
         </svg>
         <img src="/avatar1.png" alt="Rohith Kantubhuktha" class="avatar-img" />
       </div>

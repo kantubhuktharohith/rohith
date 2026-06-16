@@ -36,31 +36,89 @@
   color: var(--accent);
 }
 
-.nav-music-btn {
-  background: transparent;
-  border: none;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
+/* Floating Music Button in Bottom Right */
+.floating-music-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(10, 25, 20, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  padding: 4px 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: var(--transition);
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
 }
 
-.nav-music-btn:hover {
+.floating-music-btn:hover {
+  border-color: var(--accent);
   color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
 }
 
-.nav-music-btn.is-playing {
+.floating-music-btn.is-playing {
   color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.35);
 }
 
-.nav-music-btn.is-playing .nav-key {
-  color: var(--accent);
+.music-btn-key {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  display: none;
+  transition: var(--transition);
+}
+
+@media (min-width: 768px) {
+  .floating-music-btn:hover .music-btn-key {
+    display: inline-block;
+  }
+  
+  .floating-music-btn:hover {
+    width: auto;
+    border-radius: 24px;
+    padding: 0 16px;
+  }
+}
+
+.music-icon-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.music-slash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  background-color: var(--text-muted);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 1px;
+  transition: background-color 0.3s ease;
+}
+
+.floating-music-btn:hover .music-slash {
+  background-color: var(--text-primary);
 }
 
 .pulse-icon {
@@ -102,6 +160,16 @@
   width: 104px;
   height: 104px;
   pointer-events: none;
+  animation: spinAvatarRing 25s linear infinite;
+}
+
+@keyframes spinAvatarRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .avatar-img {
@@ -481,16 +549,32 @@
 /* ==========================================================================
    CONTACT PAGE
    ========================================================================== */
-.contact-container {
+.contact-layout {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  max-width: 700px;
+}
+
+.contact-section-heading {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.contact-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .contact-bio {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  margin-bottom: 8px;
 }
 
 .contact-form {
@@ -561,6 +645,217 @@
 
 .btn-submit:hover {
   background-color: #34d399;
+  transform: translateY(-1px);
+}
+
+.btn-submit.btn-success {
+  background-color: #34d399;
+  animation: submitPulse 0.4s ease-out;
+}
+
+@keyframes submitPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Social cards column */
+.contact-socials-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-card-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Small compact card: icon + name */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: var(--transition);
+  width: fit-content;
+  flex-shrink: 0;
+}
+
+.contact-card-wrapper:hover .contact-card {
+  border-color: var(--border-hover);
+  background-color: var(--bg-card-hover);
+}
+
+.contact-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--accent-muted);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.contact-card-wrapper:hover .contact-card-icon {
+  background-color: var(--accent);
+  color: #040d0a;
+  border-color: var(--accent);
+}
+
+.contact-card-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.contact-card-wrapper:hover .contact-card-name {
+  color: var(--text-primary);
+}
+
+/* CTA area on the right: arrow + spaced text */
+.contact-card-cta-area {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  animation: floatCta 3s ease-in-out infinite;
+}
+
+/* Stagger the float per card */
+.contact-card-wrapper:nth-child(1) .contact-card-cta-area {
+  animation-delay: 0s;
+}
+.contact-card-wrapper:nth-child(2) .contact-card-cta-area {
+  animation-delay: 0.6s;
+}
+.contact-card-wrapper:nth-child(3) .contact-card-cta-area {
+  animation-delay: 1.2s;
+}
+.contact-card-wrapper:nth-child(4) .contact-card-cta-area {
+  animation-delay: 1.8s;
+}
+.contact-card-wrapper:nth-child(5) .contact-card-cta-area {
+  animation-delay: 2.4s;
+}
+
+@keyframes floatCta {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.curvy-arrow {
+  width: 70px;
+  height: 38px;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  animation: snakeMove 2.4s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.contact-card-wrapper:nth-child(1) .curvy-arrow {
+  animation-delay: 0s;
+}
+.contact-card-wrapper:nth-child(2) .curvy-arrow {
+  animation-delay: 0.48s;
+}
+.contact-card-wrapper:nth-child(3) .curvy-arrow {
+  animation-delay: 0.96s;
+}
+.contact-card-wrapper:nth-child(4) .curvy-arrow {
+  animation-delay: 1.44s;
+}
+.contact-card-wrapper:nth-child(5) .curvy-arrow {
+  animation-delay: 1.92s;
+}
+
+@keyframes snakeMove {
+  0%, 100% {
+    transform: translate(0, -1px) rotate(-1.5deg);
+  }
+  25% {
+    transform: translate(2px, 1px) rotate(0deg);
+  }
+  50% {
+    transform: translate(0, 2px) rotate(1.5deg);
+  }
+  75% {
+    transform: translate(-2px, 0) rotate(0deg);
+  }
+}
+
+.contact-card-wrapper:hover .curvy-arrow {
+  color: var(--accent);
+}
+
+/* Continuous flowing dashes along the path */
+.curvy-arrow-path {
+  stroke-dasharray: 8 6;
+  animation: flowDash 1.5s linear infinite;
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* Arrowhead gentle bob */
+.curvy-arrow-head {
+  animation: bobHead 2s ease-in-out infinite;
+}
+
+@keyframes bobHead {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(2px);
+    opacity: 1;
+  }
+}
+
+.contact-card-cta-text {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: var(--transition);
+  letter-spacing: 0.08em;
+}
+
+.contact-card-wrapper:hover .contact-card-cta-text {
+  color: var(--accent);
 }
 
 /* ==========================================================================
